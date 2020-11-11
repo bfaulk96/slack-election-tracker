@@ -30,7 +30,7 @@ export async function getElectionResults(
         lean = 'Republican';
       }
 
-      const firstSection = `${emojiIndicator} ${res.stateName} is currently leaning *${lean}* by a margin of *${res.leaderMarginVotes}* votes (${res.reportingValue} reporting)`;
+      const firstSection = `${emojiIndicator} *${res.stateName}*: *${lean}* | Margin: *${res.leaderMarginVotes}* votes (${res.reportingValue} reporting)`;
       const metaData = `State's EVs: ${res.electoralVotes} | Total Votes: ${res.votes}`;
 
       const candidateSections = res.candidates
