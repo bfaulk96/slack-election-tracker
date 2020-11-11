@@ -1,14 +1,8 @@
 import { logger } from './logging/LoggerService';
 import { SlackUser } from './models/slack-user';
-import { CommandTypes, FunctionResults } from './models/types';
-import {
-  containsInvalidCharacters,
-  containsWord,
-  respondToHandshake,
-  splitOnSpacesOrQuotes,
-} from './helpers/helpers';
-import { UpdateWriteOpResult } from 'mongodb';
-import { SlackEventBody, MessageEvent, SlackSlashCommandBody } from './models/slack-event';
+import { FunctionResults } from './models/types';
+import { respondToHandshake } from './helpers/helpers';
+import { SlackSlashCommandBody } from './models/slack-event';
 import { stateToRace } from './actions/actions';
 
 export async function getElectionResults(
