@@ -25,7 +25,7 @@ export async function getElectionResults(
       let emojiIndicator = ':large_blue_circle:';
       let lean = 'Democrat';
 
-      if (!res.raceRating.includes('lean-dem')) {
+      if (!res.raceRating.includes('dem')) {
         emojiIndicator = ':red_circle:';
         lean = 'Republican';
       }
