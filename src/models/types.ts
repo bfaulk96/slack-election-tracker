@@ -30,4 +30,4 @@ export const CommandTypes = {
   BULK_REMOVE: ['bulk-remove', 'br'],
 };
 
-export type Maybe<T> = T | undefined;
+export type Maybe<T> = T | undefined | null;

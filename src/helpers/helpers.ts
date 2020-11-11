@@ -1,4 +1,4 @@
-import { FunctionResults, Methods } from '../models/types';
+import { FunctionResults, Maybe } from '../models/types';
 import { NowRequest, NowResponse } from '@vercel/node';
 import { logger } from '../logging/LoggerService';
 import { createHmac, timingSafeEqual } from 'crypto';
@@ -6,11 +6,11 @@ import { createHmac, timingSafeEqual } from 'crypto';
 export async function validateFromSlack(
   req: NowRequest,
   res: NowResponse
-): Promise<NowResponse | null> {
+): Promise<Maybe<NowResponse>> {
   try {
     const signingSecret = process.env.SIGNING_SECRET ?? '';
     const bodyStr = await streamToString(req);
-    logger.debug(`Headers: ${JSON.stringify(req.headers, null, 2)}`);
+    // logger.debug(`Headers: ${JSON.stringify(req.headers, null, 2)}`);
     const ts = parseInt((req.headers['x-slack-request-timestamp'] as string) ?? '0');
     const slackSignature: string = req.headers['x-slack-signature'] as string;
 
@@ -64,41 +64,10 @@ export function getBotTokenOrError(response: NowResponse): string | NowResponse 
 export function respondToHandshake(
   body: any, // eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   response: FunctionResults
-): FunctionResults | undefined {
+): Maybe<FunctionResults> {
   const challenge = body?.value?.challenge ?? body?.challenge;
   if (challenge) {
     response.body = { challenge };
     return response;
   }
-}
-
-export function containsWord(str: string, word: string): boolean {
-  return (
-    // check that word isn't part of an emoji already
-    str.match(new RegExp('.*:[A-z_,-]*' + word + '[A-z_,-]*:.*')) === null &&
-    // check that word is found in text
-    str.match(new RegExp('\\b' + word + '\\b')) !== null
-  );
-}
-
-export function containsInvalidCharacters(str: string): boolean {
-  return !/^[a-zA-Z0-9_"' -]*$/g.test(str);
-}
-
-export function splitOnSpacesOrQuotes(str: string): string[] {
-  //The parenthesis in the regex creates a captured group within the quotes
-  const splitBySpacesOrQuotes = /[^\s"]+|"([^"]*)"|'([^']*)'/gi;
-  const results = [];
-
-  let match = splitBySpacesOrQuotes.exec(str);
-  while (match) {
-    // Each call to exec returns the next regex match as an array
-
-    // Index 1 in the array is the captured group if it exists
-    // Index 0 is the matched text, which we use if no captured group exists
-    results.push(match[1] ?? match[0]);
-    match = splitBySpacesOrQuotes.exec(str);
-  }
-
-  return results;
 }

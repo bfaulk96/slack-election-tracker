@@ -53,13 +53,14 @@ import { Election } from '../models/election';
 import { plainToClass } from 'class-transformer';
 
 export async function stateToRace(state: string): Promise<Election> {
+  state = state.toLowerCase();
   // Try to find by state code first
-  if (!stateCodes.some((stateCode: string): boolean => stateCode === state)) {
+  if (!stateCodes.some((stateCode: string): boolean => stateCode.toLowerCase() === state)) {
     // Then try to find by name
     state = stateNames[state]?.toLowerCase();
     if (!state) {
       // If neither are found, then the user fucked up
-      throw new Error('Invalid state provided.');
+      throw new Error(`Invalid state provided: '${state}'`);
     }
   }
 
