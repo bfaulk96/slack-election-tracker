@@ -1,5 +1,5 @@
 // import { logger } from '../logging/LoggerService';
-// import fetch from 'node-fetch';
+import fetch from 'node-fetch';
 // import { SlackUser } from '../models/slack-user';
 //
 // export async function addMultipleReactions(
@@ -59,7 +59,7 @@ export async function stateToRace(stateInput: string): Promise<Election> {
     // Then try to find by name
     state = stateNames[state]?.toLowerCase();
     if (!state) {
-      // If neither are found, then the user fucked up
+      // If neither are found, then bad input was provided
       throw new Error(`Invalid state provided: '${state}'`);
     }
   }
