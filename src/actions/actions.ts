@@ -56,7 +56,7 @@ export async function stateToRace(state: string): Promise<Election> {
   // Try to find by state code first
   if (!stateCodes.some((stateCode: string): boolean => stateCode === state)) {
     // Then try to find by name
-    state = stateNames[state];
+    state = stateNames[state]?.toLowerCase();
     if (!state) {
       // If neither are found, then the user fucked up
       throw new Error('Invalid state provided.');
@@ -69,7 +69,8 @@ export async function stateToRace(state: string): Promise<Election> {
   const json = await res.json();
 
   const race: Partial<Election> = json.data.races.find(
-    (race: Record<string, unknown>): boolean => race.state_id === state
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (race: Record<string, any>): boolean => race.state_id?.toLowerCase() === state
   );
 
   if (!race) {

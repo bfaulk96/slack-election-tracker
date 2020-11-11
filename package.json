@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Election Tracker Slackbot, written with Typescript and NodeJS",
   "repository": "https://github.com/bfaulk96/slack-election-tracker",
-  "main": "api/serverless.ts",
+  "main": "api/election-results.ts",
   "scripts": {
-    "start": "ts-node api/serverless.ts",
+    "start": "ts-node api/election-results.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix",
     "format": "prettier --write **/*.{js,ts}"
