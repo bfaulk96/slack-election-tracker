@@ -34,7 +34,7 @@ export async function getElectionResults(
       const metaData = `State's EVs: ${res.electoralVotes} | Total Votes: ${res.votes}`;
 
       const candidateSections = res.candidates
-        .filter((c) => c.lastName.toLowerCase() !== 'write-ins')
+        .filter((c) => c.lastName.toLowerCase() !== 'write-ins' && c.percent > 0.5)
         .map((c) => ({
           type: 'section',
           text: {
