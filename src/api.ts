@@ -33,8 +33,9 @@ export async function getElectionResults(
       const firstSection = `${emojiIndicator} *${res.stateName}*: *${lean}* | Margin: *${res.leaderMarginVotes}* votes (${res.reportingValue} reporting)`;
       const metaData = `State's EVs: ${res.electoralVotes} | Total Votes: ${res.votes}`;
 
+      const ignoreNames = ['none of these candidates', 'write-ins'];
       const candidateSections = res.candidates
-        .filter((c) => c.lastName.toLowerCase() !== 'write-ins' && c.percent > 0.5)
+        .filter((c) => !ignoreNames.includes(c.lastName.toLowerCase()) && c.percent > 0.5)
         .map((c) => ({
           type: 'section',
           text: {
