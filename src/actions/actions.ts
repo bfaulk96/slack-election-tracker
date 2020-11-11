@@ -52,10 +52,10 @@ import { stateCodes, stateNames } from '../models/states';
 import { Election } from '../models/election';
 import { plainToClass } from 'class-transformer';
 
-export async function stateToRace(state: string): Promise<Election> {
-  state = state.toLowerCase();
+export async function stateToRace(stateInput: string): Promise<Election> {
+  let state = stateInput?.toLowerCase();
   // Try to find by state code first
-  if (!stateCodes.some((stateCode: string): boolean => stateCode.toLowerCase() === state)) {
+  if (!stateCodes.includes(stateInput?.toUpperCase())) {
     // Then try to find by name
     state = stateNames[state]?.toLowerCase();
     if (!state) {
