@@ -1,0 +1,16 @@
+# Ignore IDE settings
+*.iml
+.idea/
+
+# Ignore packages
+node_modules/
+
+# Ignore artifacts:
+build/
+dist/
+coverage/
+.vercel/
+.now/
+
+# Ignore all HTML files:
+*.html
