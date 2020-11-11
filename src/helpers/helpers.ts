@@ -1,5 +1,4 @@
 import { FunctionResults, Methods } from '../models/types';
-import { Database } from '../database/database';
 import { NowRequest, NowResponse } from '@vercel/node';
 import { logger } from '../logging/LoggerService';
 import { createHmac, timingSafeEqual } from 'crypto';
@@ -53,15 +52,6 @@ async function streamToString(stream: NowRequest) {
   });
 }
 
-export async function connectOrError(response: NowResponse): Promise<null | NowResponse> {
-  try {
-    await Database.connect();
-  } catch (err) {
-    return response.status(500).send(`An error occurred connecting to DB: ${err}`);
-  }
-  return null;
-}
-
 export function getBotTokenOrError(response: NowResponse): string | NowResponse {
   const BOT_TOKEN = process.env.BOT_TOKEN;
   if (!BOT_TOKEN) {
@@ -71,17 +61,8 @@ export function getBotTokenOrError(response: NowResponse): string | NowResponse 
   return BOT_TOKEN;
 }
 
-export function checkAllowedMethodsOrError(
-  method: Methods,
-  allowedMethods: Methods[],
-  response: NowResponse
-): null | NowResponse {
-  if (!allowedMethods.includes(method)) return response.status(405).send('Method Not Allowed');
-  return null;
-}
-
 export function respondToHandshake(
-  body: any,
+  body: any, // eslint-disable-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   response: FunctionResults
 ): FunctionResults | undefined {
   const challenge = body?.value?.challenge ?? body?.challenge;
@@ -100,7 +81,7 @@ export function containsWord(str: string, word: string): boolean {
   );
 }
 
-export function containsInvalidCharacters(str: string) {
+export function containsInvalidCharacters(str: string): boolean {
   return !/^[a-zA-Z0-9_"' -]*$/g.test(str);
 }
 

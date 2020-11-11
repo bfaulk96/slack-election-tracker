@@ -1,8 +1,8 @@
 {
-  "name": "emoji-responder-node",
+  "name": "slack-election-tracker",
   "version": "1.0.0",
-  "description": "EmojiResponder Slackbot, written with Typescript and NodeJS",
-  "repository": "https://github.com/bfaulk96/emoji-responder-node",
+  "description": "Election Tracker Slackbot, written with Typescript and NodeJS",
+  "repository": "https://github.com/bfaulk96/slack-election-tracker",
   "main": "api/serverless.ts",
   "scripts": {
     "start": "ts-node api/serverless.ts",
@@ -18,13 +18,17 @@
     "emoji",
     "slack",
     "slackbot",
-    "responder",
     "javascript",
     "serverless",
-    "bot"
+    "bot",
+    "election",
+    "results",
+    "elections",
+    "vote"
   ],
   "license": "ISC",
   "dependencies": {
+    "class-transformer": "^0.3.1",
     "mongodb": "^3.6.2",
     "node-fetch": "^2.6.1",
     "winston": "3.3.3"

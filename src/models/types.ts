@@ -12,7 +12,7 @@ export interface EmojiMappingsDbo {
 
 export interface FunctionResults {
   status: number;
-  body: string | any;
+  body: string | any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export enum Methods {
@@ -29,3 +29,5 @@ export const CommandTypes = {
   BULK_ADD: ['bulk-add', 'ba'],
   BULK_REMOVE: ['bulk-remove', 'br'],
 };
+
+export type Maybe<T> = T | undefined;
