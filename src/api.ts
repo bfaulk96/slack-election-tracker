@@ -20,7 +20,7 @@ export async function getElectionResults(
 
     try {
       const results = await stateToRace(text);
-      logger.info(results);
+      logger.info(JSON.stringify(results, null, 2));
 
       // response.body = {
       //   response_type: 'in_channel',
